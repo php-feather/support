@@ -29,6 +29,16 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name, $value)
+    {
+        $this->items[$name] = $value;
+    }
+
+    /**
      * Add data to container
      * @param string|int $key
      * @param mixed $value

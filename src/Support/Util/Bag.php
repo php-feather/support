@@ -155,7 +155,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      */
     public function getIterator(): \Traversable
     {
-        return $this->items;
+        return new \ArrayIterator($this->items);
     }
 
     /**

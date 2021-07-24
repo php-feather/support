@@ -43,9 +43,20 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      * @param string|int $key
      * @param mixed $value
      */
-    public function addItem($key, $value)
+    public function add($key, $value)
     {
         $this->items[$key] = $value;
+    }
+
+    /**
+     * @deprecated will be removed in v1.0.1
+     * use add()
+     * @param string|int $key
+     * @param mixed $value
+     */
+    public function addItem($key, $value)
+    {
+        $this->add($key, $value);
     }
 
     /**
@@ -55,6 +66,15 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     public function addItems(array $items)
     {
         $this->items = array_merge($this->items, $items);
+    }
+
+    /**
+     * Get all items in the container
+     * @return array
+     */
+    public function all()
+    {
+        return $this->items;
     }
 
     /**
@@ -71,18 +91,32 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      * @param string $key
      * @return mixed
      */
-    public function getItem($key)
+    public function get($key)
     {
         return $this->items[$key] ?? null;
     }
 
     /**
+     * @deprecated will be removed in v1.0.1
+     * use get()
+     * @param string|int $key
+     * @return mixed
+     */
+    public function getItem($key)
+    {
+        return $this->get($key);
+    }
+
+    /**
+     *
+     * @deprecated will be removed in v1.0.1
+     * use all()
      * Get all items in the container
      * @return array
      */
     public function getItems()
     {
-        return $this->items;
+        return $this->all();
     }
 
     /**
@@ -100,7 +134,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      * @param string $key
      * @return boolean
      */
-    public function removeItem($key)
+    public function remove($key)
     {
 
         if (array_key_exists($key, $this->items)) {
@@ -109,6 +143,18 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
         }
 
         return false;
+    }
+
+    /**
+     * @deprecated will be removed in v1.0.1
+     * use remove()
+     * @param string $key
+     * @return boolean
+     */
+    public function removeItem($key)
+    {
+
+        return $this->remove($key);
     }
 
     /**

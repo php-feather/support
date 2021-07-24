@@ -27,7 +27,7 @@ class Container implements IContainer
      */
     public function add(string $key, $data)
     {
-        $this->bag->addItem($key, $data);
+        $this->bag->add($key, $data);
     }
 
     /**
@@ -66,7 +66,7 @@ class Container implements IContainer
      */
     public function register(string $key, \Closure $closure)
     {
-        $this->bag->addItem($key, $closure);
+        $this->bag->add($key, $closure);
     }
 
     /**
@@ -131,7 +131,7 @@ class Container implements IContainer
      */
     protected function updateBag($key, $value)
     {
-        $this->bag->addItem($key, $value);
+        $this->bag->add($key, $value);
     }
 
 }

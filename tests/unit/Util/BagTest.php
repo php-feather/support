@@ -29,7 +29,7 @@ class BagTest extends TestCase
      */
     public function addItem()
     {
-        static::$bag->addItem('apple', 'Apple');
+        static::$bag->add('apple', 'Apple');
         $this->assertTrue(static::$bag->count() === 1);
     }
 
@@ -61,7 +61,7 @@ class BagTest extends TestCase
      */
     public function getExistingItem()
     {
-        $apple = static::$bag->getItem('apple');
+        $apple = static::$bag->get('apple');
         $this->assertTrue($apple === 'Apple');
     }
 
@@ -70,7 +70,7 @@ class BagTest extends TestCase
      */
     public function nonExistingItemShouldBeNull()
     {
-        $orange = static::$bag->getItem('orange');
+        $orange = static::$bag->get('orange');
         $this->assertTrue($orange === null);
     }
 

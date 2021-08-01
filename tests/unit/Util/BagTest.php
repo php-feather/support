@@ -74,4 +74,69 @@ class BagTest extends TestCase
         $this->assertTrue($orange === null);
     }
 
+    /**
+     * @test
+     */
+    public function willReturnIntForIntegerValue()
+    {
+        static::$bag->addItems([
+            'int' => '12',
+            'float' => '12.96',
+            'bool' => 'true'
+        ]);
+
+        $int = static::$bag->getInt('int');
+
+        $this->assertEquals(12, $int);
+    }
+
+    /**
+     * @test
+     */
+    public function willReturnNUllForNonIntegerValue()
+    {
+        $int = static::$bag->getInt('bool');
+
+        $this->assertNull($int);
+    }
+
+    /**
+     * @test
+     */
+    public function willReturnFloatForFloatValue()
+    {
+        $float = static::$bag->getFloat('float');
+
+        $this->assertEquals(12.96, $float);
+    }
+
+    /**
+     * @test
+     */
+    public function willReturnNUllForNonFloatValue()
+    {
+        $float = static::$bag->getFloat('lemon');
+
+        $this->assertNull($float);
+    }
+
+    /**
+     * @test
+     */
+    public function willReturnBoolForBooleanValue()
+    {
+        $bool = static::$bag->getBoolean('bool');
+
+        $this->assertEquals(true, $bool);
+    }
+
+    /**
+     * @test
+     */
+    public function willReturnFalseForNonBooleanValue()
+    {
+        $bool = static::$bag->getBoolean('float');
+        $this->assertEquals(false, $bool);
+    }
+
 }

@@ -97,6 +97,50 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
+     *
+     * @param string $key
+     * @return bool|null
+     */
+    public function getBoolean($key)
+    {
+        $val = $this->get($key);
+
+        return filter_var($val, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     *
+     * @param string $key
+     * @return float|null
+     */
+    public function getFloat($key)
+    {
+        $val = $this->get($key);
+
+        if (is_numeric($val)) {
+            return floatval($val);
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * @param string $key
+     * @return int|null
+     */
+    public function getInt($key)
+    {
+        $val = $this->get($key);
+
+        if (is_numeric($val)) {
+            return intval($val);
+        }
+
+        return null;
+    }
+
+    /**
      * @deprecated will be removed in v1.0.1
      * use get()
      * @param string|int $key

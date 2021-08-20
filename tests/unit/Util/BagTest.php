@@ -139,4 +139,11 @@ class BagTest extends TestCase
         $this->assertEquals(false, $bool);
     }
 
+    public function willReturnKeysOfItemsAdded()
+    {
+        $keys = static::$bag->keys();
+        $this->assertTrue(is_array($keys) && count($keys) > 1);
+        $this->assertTrue(in_array('banana', $keys));
+    }
+
 }

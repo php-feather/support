@@ -174,6 +174,15 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
+     * 
+     * @return array
+     */
+    public function keys()
+    {
+        return array_keys($this->items);
+    }
+
+    /**
      *
      * @param string $key
      * @return boolean

@@ -2,6 +2,8 @@
 
 namespace Feather\Support\Database;
 
+use Feather\Support\Database\Connectors\Connector;
+use Feather\Support\Database\Connectors\IConnector;
 use PDO;
 
 /**
@@ -15,17 +17,8 @@ class Dbal implements IDatabase
     /** @var \PDO * */
     protected $pdo;
 
-    /** @var string * */
-    protected $dsn;
-
-    /** @var string * */
-    protected $user;
-
-    /** @var string * */
-    protected $password;
-
     /** @var array * */
-    protected $options = [];
+    protected $config = [];
 
     /**
      *
@@ -34,12 +27,9 @@ class Dbal implements IDatabase
      * @param string $password
      * @param array $pdoOptions
      */
-    public function __construct($dsn, $user, $password, array $pdoOptions = [])
+    public function __construct(array $config)
     {
-        $this->dsn = $dsn;
-        $this->user = $user;
-        $this->password = $password;
-        $this->options = $pdoOptions;
+        $this->config = $config;
     }
 
     /**
@@ -74,7 +64,25 @@ class Dbal implements IDatabase
      */
     public function connect()
     {
-        $this->pdo = new \PDO($this->dsn, $this->user, $this->password, $this->options);
+        if (isset($this->config['connector'])) {
+
+            $connector = $this->config['connector'];
+
+            if ($connector instanceof IConnector) {
+                $this->pdo = $connector->connect($this->config);
+                return true;
+            }
+
+            if (is_string($connector) && class_exists($connector) && ($connector = new $connector()) instanceof IConnector) {
+                $this->pdo = $connector->connect($this->config);
+                return true;
+            }
+        }
+
+        $driver = $this->config['driver'] ?? '';
+        $connector = Connector::getConnector(strtolower($driver));
+        $this->pdo = $connector->connect($this->config);
+
         return true;
     }
 

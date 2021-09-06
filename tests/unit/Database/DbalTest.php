@@ -16,7 +16,13 @@ class DbalTest extends TestCase
      */
     public function connectToDB()
     {
-        $db = new Dbal('mysql:host=localhost;dbname=test', 'my_user', null);
+        $dbConfig = [
+            'driver' => 'mysql',
+            'username' => 'root',
+            'host' => '127.0.0.1',
+            'database' => 'feather'
+        ];
+        $db = new Dbal($dbConfig);
 
         $this->assertTrue($db->connect());
         $this->assertTrue($db->getPdo() instanceof PDO);
@@ -27,7 +33,14 @@ class DbalTest extends TestCase
      */
     public function closeDBConnection()
     {
-        $db = new Dbal('mysql:host=localhost;dbname=test', 'my_user', null);
+        $dbConfig = [
+            'driver' => 'mysql',
+            'username' => 'root',
+            'host' => '127.0.0.1',
+            'database' => 'feather'
+        ];
+        $db = new Dbal($dbConfig);
+
         $db->connect();
         $this->assertTrue($db->close());
         $this->assertTrue($db->getPdo() === null);
@@ -40,7 +53,13 @@ class DbalTest extends TestCase
     public function willThrowPDOExceptionForInvalidConnectionString()
     {
         $this->expectException(PDOException::class);
-        $db = new Dbal('mysql:host=localhost;dbname=tests', 'my_user', null);
+        $dbConfig = [
+            'driver' => 'mysql',
+            'username' => 'root',
+            'host' => '127.0.0.1',
+            'database' => 'tests'
+        ];
+        $db = new Dbal($dbConfig);
         $db->connect();
     }
 

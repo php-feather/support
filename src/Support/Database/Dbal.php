@@ -64,6 +64,11 @@ class Dbal implements IDatabase
      */
     public function connect()
     {
+
+        if ($this->pdo) {
+            return true;
+        }
+
         if (isset($this->config['connector'])) {
 
             $connector = $this->config['connector'];

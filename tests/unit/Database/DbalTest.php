@@ -1,6 +1,6 @@
 <?php
 
-use Feather\Support\Database\Dbal;
+use Feather\Support\Database\Connection;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,7 +22,7 @@ class DbalTest extends TestCase
             'host' => '127.0.0.1',
             'database' => 'feather'
         ];
-        $db = new Dbal($dbConfig);
+        $db = new Connection($dbConfig);
 
         $this->assertTrue($db->connect());
         $this->assertTrue($db->getPdo() instanceof PDO);
@@ -39,7 +39,7 @@ class DbalTest extends TestCase
             'host' => '127.0.0.1',
             'database' => 'feather'
         ];
-        $db = new Dbal($dbConfig);
+        $db = new Connection($dbConfig);
 
         $db->connect();
         $this->assertTrue($db->close());
@@ -59,7 +59,7 @@ class DbalTest extends TestCase
             'host' => '127.0.0.1',
             'database' => 'tests'
         ];
-        $db = new Dbal($dbConfig);
+        $db = new Connection($dbConfig);
         $db->connect();
     }
 

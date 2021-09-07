@@ -6,7 +6,7 @@ namespace Feather\Support\Database;
  *
  * @author fcarbah
  */
-interface IDatabase
+interface IConnection
 {
 
     /**
@@ -22,7 +22,7 @@ interface IDatabase
     public function connect();
 
     /**
-     * Get undderlying PDO
+     * Get underlying PDO
      * @return \PDO
      */
     public function getPdo();

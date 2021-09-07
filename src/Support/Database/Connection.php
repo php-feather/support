@@ -11,7 +11,7 @@ use PDO;
  *
  * @author fcarbah
  */
-class Dbal implements IDatabase
+class Connection implements IConnection
 {
 
     /** @var \PDO * */

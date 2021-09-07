@@ -26,9 +26,9 @@ class ClassFinderTest extends TestCase
      */
     public function getFindExistingClassWithoutNamespace()
     {
-        $classFinder = new ClassFinder(dirname(__FILE__, 4) . '/src/Support/Database/Dbal.php', false);
+        $classFinder = new ClassFinder(dirname(__FILE__, 4) . '/src/Support/Database/Connection.php', false);
         $name = $classFinder->load();
-        $this->assertEquals('Dbal', $name);
+        $this->assertEquals('Connection', $name);
     }
 
     /**

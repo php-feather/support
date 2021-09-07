@@ -4,11 +4,11 @@ use Feather\Support\Database\Connection;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Description of DbalTest
+ * Description of ConnectionTest
  *
  * @author fcarbah
  */
-class DbalTest extends TestCase
+class ConnectionTest extends TestCase
 {
 
     /**

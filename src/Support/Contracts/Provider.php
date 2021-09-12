@@ -9,26 +9,18 @@ use Feather\Support\Container\Singleton;
  *
  * @author fcarbah
  */
-abstract class Provider
+interface IProvider
 {
-
-    /** @var \Feather\Support\Container\IContainer * */
-    protected $container;
-
-    public function __construct()
-    {
-        $this->container = Singleton::getInstance();
-    }
 
     /**
      * Return object/data to provide
      * @return mixed
      */
-    public abstract function provide();
+    public function provide();
 
     /**
      * Register object or data
      * @return void
      */
-    public abstract function register();
+    public function register();
 }

@@ -12,6 +12,7 @@ use Feather\Support\Container\Singleton;
 abstract class Provider
 {
 
+    /** @var \Feather\Support\Container\IContainer * */
     protected $container;
 
     public function __construct()

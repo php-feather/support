@@ -50,6 +50,30 @@ class BagTest extends TestCase
     /**
      * @test
      */
+    public function willNotUpdateExistingItem()
+    {
+        static::$bag->add('banana', 'plantain');
+        $val = static::$bag->get('banana');
+
+        $this->assertFalse($val == 'plantain');
+        $this->assertEquals('Banana', $val);
+    }
+
+    /**
+     * @test
+     */
+    public function willUpdateExistingItem()
+    {
+        static::$bag->update(['banana' => 'plantain']);
+        $val = static::$bag->get('banana');
+
+        $this->assertFalse($val == 'Banana');
+        $this->assertEquals('plantain', $val);
+    }
+
+    /**
+     * @test
+     */
     public function removeItem()
     {
         static::$bag->removeItem('orange');

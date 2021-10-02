@@ -39,13 +39,17 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
-     * Add data to container
+     * Add data to bag
+     * If a key already exist, the original key will not be overwritten
+     * To replace an existing item use the update() method instead
      * @param string|int $key
      * @param mixed $value
      */
     public function add($key, $value)
     {
-        $this->items[$key] = $value;
+        if (!isset($this->items[$key])) {
+            $this->items[$key] = $value;
+        }
     }
 
     /**
@@ -61,11 +65,14 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
 
     /**
      * Add multiple items to container
+     * If a key already exist, the original key will not be overwritten
+     * To replace an existing item use the update() method instead
      * @param array $items
      */
     public function addItems(array $items)
     {
-        $this->items = array_merge($this->items, $items);
+        $itemsToAdd = array_diff($items, $this->items);
+        $this->items = array_merge($this->items, $itemsToAdd);
     }
 
     /**
@@ -174,7 +181,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
-     * 
+     *
      * @return array
      */
     public function keys()
@@ -264,6 +271,15 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     public function jsonSerialize()
     {
         return json_encode($this->items);
+    }
+
+    /**
+     * Overwrite existing items if keys already exist or add them if it doesn't already exist
+     * @param array $items
+     */
+    public function update(array $items)
+    {
+        $this->items = array_merge($this->items, $items);
     }
 
     /**

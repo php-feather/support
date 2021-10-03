@@ -46,7 +46,22 @@ interface IRequestParamBag
      *
      * @param string $key
      * @param mixed $default
+     */
+    public function header($key, $default);
+
+    /**
+     *
+     * @param string $key
+     * @param mixed $default
      * @return Feather\Support\Util\Bag|null
      */
     public function post($key, $default);
+
+    /**
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return Feather\Support\Util\Bag|null
+     */
+    public function server($key, $default);
 }

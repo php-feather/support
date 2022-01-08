@@ -13,14 +13,8 @@ interface IProvider
 {
 
     /**
-     * Return object/data to provide
-     * @return mixed
-     */
-    public function provide();
-
-    /**
      * Register object or data
-     * @return void
+     * @return mixed
      */
     public function register();
 }

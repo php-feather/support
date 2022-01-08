@@ -71,7 +71,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      */
     public function addItems(array $items)
     {
-        $itemsToAdd = array_diff($items, $this->items);
+        $itemsToAdd  = array_diff($items, $this->items);
         $this->items = array_merge($this->items, $itemsToAdd);
     }
 
@@ -118,9 +118,9 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     /**
      *
      * @param string $key
-     * @return float|null
+     * @return float
      */
-    public function getFloat($key)
+    public function getFloat($key, float $default = 0.0)
     {
         $val = $this->get($key);
 
@@ -128,15 +128,15 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
             return floatval($val);
         }
 
-        return null;
+        return $default;
     }
 
     /**
      *
      * @param string $key
-     * @return int|null
+     * @return int
      */
-    public function getInt($key)
+    public function getInt($key, int $default = 0)
     {
         $val = $this->get($key);
 
@@ -144,7 +144,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
             return intval($val);
         }
 
-        return null;
+        return $default;
     }
 
     /**
@@ -230,7 +230,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      *
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->items[$offset] ?? null;
     }
@@ -266,9 +266,9 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
 
     /**
      *
-     * @return string
+     * @return mixed
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return json_encode($this->items);
     }

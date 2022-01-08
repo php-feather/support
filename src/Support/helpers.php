@@ -71,8 +71,84 @@ function feather_file_exists(&$filename, $ci_search = true)
 }
 
 /**
+ * Get all files names including files in sub folders
+ * @param string $directory Full path of directory
+ * @param bool $reduce if true returns as a 1 dimensional array
+ * false return a multidimensional array
+ * @return array
+ */
+function feather_dir_all_files(string $directory, bool $reduce = true)
+{
+    $files = [];
+
+    if (!is_dir($directory)) {
+        return $files;
+    }
+
+    $dirContents = scandir($directory);
+    $dirParts    = preg_split('/\\\|\//', $directory);
+    $dirname     = end($dirParts);
+
+    foreach ($dirContents as $file) {
+
+        if ($file == '.' || $file == '..') {
+            continue;
+        }
+
+        if (is_dir($directory . '/' . $file)) {
+            $subFiles = feather_dir_all_files($directory . '/' . $file, $reduce);
+            if ($reduce) {
+                $files = array_merge($files, $subFiles);
+            } else {
+                $files[$dirname . '.' . $file] = $subFiles;
+            }
+        } else {
+            $name = substr($file, 0, strrpos($file, '.'));
+
+            if ($reduce) {
+                $files[] = $file;
+            } else {
+                $files[$name] = $file;
+            }
+        }
+    }
+
+    return $files;
+}
+
+/**
  *
- * @param string $directory absolute path of directory
+ * @param string $directory Absolute path of directory
+ * @return array List of filenames in the directory
+ */
+function feather_dir_files($directory)
+{
+
+    $files = [];
+
+    if (!is_dir($directory)) {
+        return $files;
+    }
+
+    $dirContents = scandir($directory);
+
+    if (!$dirContents) {
+        return $files;
+    }
+
+    foreach ($dirContents as $file) {
+        if ($file == '.' || $file == '..' || is_dir($file)) {
+            continue;
+        }
+        $files[] = $file;
+    }
+
+    return $files;
+}
+
+/**
+ *
+ * @param string $directory Absolute path of directory
  * @return array List of sub directories names
  */
 function feather_dir_folders($directory)
@@ -101,31 +177,47 @@ function feather_dir_folders($directory)
 }
 
 /**
- *
- * @param string $directory absolute path of directory
- * @return array List of filenames in the directory
+ * Get list of directory names including sub directories
+ * @param string $directory Absolute path to directory
+ * @param bool $reduce if true returns as a 1 dimensional array
+ * false return a multidimensional array
+ * @return array
  */
-function feather_dir_files($directory)
+function feather_dir_all_folders(string $directory, bool $reduce = true)
 {
-
-    $files = [];
+    $folders = [];
 
     if (!is_dir($directory)) {
-        return $files;
+        return $folders;
     }
 
     $dirContents = scandir($directory);
 
     if (!$dirContents) {
-        return $files;
+        return $folders;
     }
 
-    foreach ($dirContents as $file) {
-        if ($file == '.' || $file == '..' || is_dir($file)) {
+    $dirParts = preg_split('/\\\|\//', $directory);
+    $dirname  = end($dirParts);
+
+    foreach ($dirContents as $dir) {
+        if ($dir == '.' || $dir == '..' || !is_dir($directory . '/' . $dir)) {
             continue;
         }
-        $files[] = $file;
+        if ($reduce) {
+            $folders[] = $dir;
+        } else {
+            $folders[$dirname] = $dir;
+        }
+        $subFolders = feather_dir_all_folders($directory . '/' . $dir);
+        if (!empty($subFolders)) {
+            if ($reduce) {
+                $folders = array_merge($folders, $subFolders);
+            } else {
+                $folders[$dir] = $subFolders;
+            }
+        }
     }
 
-    return $files;
+    return $folders;
 }

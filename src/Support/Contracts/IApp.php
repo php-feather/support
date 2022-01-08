@@ -11,8 +11,8 @@ interface IApp
 
     /**
      *
-     * @param string $key
+     * @param string|null $key
      * @return Feather\Support\Container\IContainer|mixed
      */
-    public function container($key);
+    public function container(string $key = null);
 }

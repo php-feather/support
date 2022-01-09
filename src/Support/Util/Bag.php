@@ -71,7 +71,7 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
      */
     public function addItems(array $items)
     {
-        $itemsToAdd  = array_diff($items, $this->items);
+        $itemsToAdd  = array_diff_assoc($items, $this->items);
         $this->items = array_merge($this->items, $itemsToAdd);
     }
 

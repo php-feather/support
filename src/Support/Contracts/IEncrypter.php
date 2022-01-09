@@ -13,9 +13,9 @@ interface IEncrypter
      *
      * @param string $encryptedText
      * @param bool $unserialize set this to true if original value was serialize during encryption
-     * @return string
+     * @return mixed
      */
-    public function decrypt(string $encryptedText, bool $unserialize = false): string;
+    public function decrypt(string $encryptedText, bool $unserialize = false): mixed;
 
     /**
      *

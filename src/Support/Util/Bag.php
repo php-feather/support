@@ -85,6 +85,14 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
+     * Clear all items
+     */
+    public function clear()
+    {
+        $this->items = [];
+    }
+
+    /**
      *
      * @return int
      */
@@ -187,6 +195,15 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     public function keys()
     {
         return array_keys($this->items);
+    }
+
+    /**
+     *
+     * @param \Feather\Support\Util\Bag $bag
+     */
+    public function merge(Bag $bag)
+    {
+        $this->items = array_merge($this->items, $bag->all());
     }
 
     /**

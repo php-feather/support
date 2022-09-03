@@ -53,17 +53,6 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
-     * @deprecated will be removed in v1.0.1
-     * use add()
-     * @param string|int $key
-     * @param mixed $value
-     */
-    public function addItem($key, $value)
-    {
-        $this->add($key, $value);
-    }
-
-    /**
      * Add multiple items to container
      * If a key already exist, the original key will not be overwritten
      * To replace an existing item use the update() method instead
@@ -104,11 +93,12 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     /**
      *
      * @param string $key
+     * @param mixed $default
      * @return mixed
      */
-    public function get($key)
+    public function get($key, $default = null)
     {
-        return $this->items[$key] ?? null;
+        return $this->items[$key] ?? $default;
     }
 
     /**
@@ -156,29 +146,6 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
     }
 
     /**
-     * @deprecated will be removed in v1.0.1
-     * use get()
-     * @param string|int $key
-     * @return mixed
-     */
-    public function getItem($key)
-    {
-        return $this->get($key);
-    }
-
-    /**
-     *
-     * @deprecated will be removed in v1.0.1
-     * use all()
-     * Get all items in the container
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->all();
-    }
-
-    /**
      *
      * @param string|int $key
      * @return bool
@@ -220,18 +187,6 @@ class Bag implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
         }
 
         return false;
-    }
-
-    /**
-     * @deprecated will be removed in v1.0.1
-     * use remove()
-     * @param string $key
-     * @return boolean
-     */
-    public function removeItem($key)
-    {
-
-        return $this->remove($key);
     }
 
     /**

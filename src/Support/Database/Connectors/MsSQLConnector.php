@@ -18,7 +18,7 @@ class MsSQLConnector extends Connector
      */
     public function connect(array $config): \PDO
     {
-        $dsn = $this->getDSN($config);
+        $dsn     = $this->getDSN($config);
         $options = $this->getOptions($config);
         $this->createConnection($dsn, $config, $options);
 
@@ -32,9 +32,9 @@ class MsSQLConnector extends Connector
      */
     protected function buildDBlibDSN(array $config)
     {
-        $port = $config['port'] ?? null;
+        $port   = $config['port'] ?? null;
         $params = [
-            'host' => $port ? "{$config['host']}:$port" : $config['host'],
+            'host'   => $port ? "{$config['host']}:$port" : $config['host'],
             'dbname' => $config['database'],
         ];
 
@@ -61,7 +61,7 @@ class MsSQLConnector extends Connector
     protected function buildSqlDSN(array $config)
     {
         $params = [];
-        $port = $config['port'] ?? null;
+        $port   = $config['port'] ?? null;
 
         $params['Server'] = $port ? $config['host'] . ',' . $port : $config['host'];
 

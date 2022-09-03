@@ -57,6 +57,9 @@ class ContainerTest extends TestCase
         $this->assertTrue(is_array($numbers));
     }
 
+    /**
+     * @test
+     */
     public function shouldNotHaveNonExistentKey()
     {
         $val = static::$container->hasKey('testkey');

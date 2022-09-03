@@ -15,7 +15,8 @@
         "php": ">=7.0",
         "amphp/parallel": "^1.4",
         "amphp/http-client": "^4.6",
-        "opis/closure": "^3.6"
+        "opis/closure": "^3.6",
+        "amphp/parallel-functions": "^1.1"
     },
     "autoload": {
         "psr-4": {

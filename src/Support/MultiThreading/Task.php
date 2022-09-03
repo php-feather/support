@@ -32,17 +32,20 @@ class Task implements AmpTask
     public function __construct($callback, array $args = [])
     {
 
-        if ($callback instanceof \Closure) {
-            $callback        = new SerializeClosure($callback);
-            $this->isClosure = true;
-        }
-        $this->callback = $callback;
+        /* if ($callback instanceof \Closure) {
+          $callback        = new SerializeClosure($callback);
+          $this->isClosure = true;
+          }
+          $this->callback = $callback;
 
-        $this->args = $args;
+          $this->args = $args; */
+        $this->callback = $callback;
+        $this->args     = $args;
     }
 
     public function run(Environment $environment)
     {
+        return Callback::execute($this->callback, $this->args);
         if ($this->isClosure) {
             $this->callback = $this->callback->getClosureFromCode($this->args);
         }
